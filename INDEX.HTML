@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi reina Anahy</title>
+    <style>
+        :root { --rosa-fuerte: #ff4b8c; --rosa-suave: #ff7eb3; }
+        body { margin: 0; padding: 0; min-height: 100vh; display: flex; justify-content: center; align-items: center; background: #fff0f3; font-family: 'Poppins', sans-serif; overflow-x: hidden; }
+
+        /* Efecto Explosión de Corazones */
+        .confeti { position: fixed; width: 15px; height: 15px; background: var(--rosa-fuerte); transform: rotate(45deg); z-index: 2000; animation: lluviaConfeti 3s linear forwards; }
+        @keyframes lluviaConfeti { 0% { top: -10%; transform: translateX(0) rotate(0); opacity: 1; } 100% { top: 100%; transform: translateX(100px) rotate(720deg); opacity: 0; } }
+
+        /* Pantalla de Bloqueo */
+        #pantalla-bloqueo { background: white; padding: 40px; border-radius: 30px; box-shadow: 0 20px 50px rgba(255, 75, 140, 0.2); text-align: center; z-index: 1000; width: 85%; max-width: 320px; border: 2px solid var(--rosa-suave); }
+        #clave-input { width: 100%; padding: 15px; margin-bottom: 20px; border: 2px solid #eee; border-radius: 15px; text-align: center; font-size: 1.5rem; outline: none; }
+        #boton-entrar { background: var(--rosa-fuerte); color: white; border: none; padding: 15px; border-radius: 15px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.1rem; }
+
+        /* Contenido Secreto */
+        #contenido-secreto { display: none; width: 100%; min-height: 100vh; position: relative; text-align: center; padding-bottom: 150px; }
+        
+        .mensaje-contenedor { background: rgba(255, 255, 255, 0.9); margin: 25px auto; width: 85%; border-radius: 30px; padding: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); backdrop-filter: blur(10px); }
+        .hola-amor { color: var(--rosa-fuerte); font-size: 2.5rem; margin-bottom: 15px; font-family: 'Great Vibes', cursive; }
+
+        /* Galería de 4 Fotos */
+        .galeria-uniforme { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 20px; }
+        .foto-marco { 
+            width: 145px; height: 200px; border-radius: 20px; border: 5px solid white; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; cursor: pointer;
+            animation: flotar 4s infinite ease-in-out;
+        }
+        .foto-marco img { width: 100%; height: 100%; object-fit: cover; }
+        @keyframes flotar { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-12px) rotate(2deg); } }
+
+        /* Contador que Late */
+        .contador-contenedor { background: white; margin: 30px auto; width: 88%; max-width: 450px; border-radius: 30px; padding: 25px; border: 3px solid var(--rosa-suave); animation: latido 1.5s infinite; }
+        @keyframes latido { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+        #reloj { display: flex; justify-content: space-around; font-weight: bold; }
+        .tiempo-num { font-size: 1.6rem; color: var(--rosa-fuerte); display: block; }
+
+        /* Botones */
+        .btn-magico { display: block; width: 85%; margin: 15px auto; padding: 16px; border-radius: 50px; text-decoration: none; font-weight: bold; border: none; cursor: pointer; color: white; transition: 0.3s; }
+        .btn-youtube { background: #ff0000; }
+        .btn-motivos { background: var(--rosa-fuerte); }
+        .btn-cita { background: white; color: var(--rosa-fuerte); border: 2px dashed var(--rosa-fuerte); margin-top: 10px; }
+
+        /* Modales */
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; backdrop-filter: blur(8px); justify-content: center; align-items: center; flex-direction: column; }
+        .modal-card { width: 85%; max-width: 350px; background: white; border-radius: 30px; padding: 25px; overflow-y: auto; max-height: 80vh; }
+        
+        .firma-final { font-family: 'Great Vibes', cursive; font-size: 1.8rem; color: var(--rosa-fuerte); margin: 40px 0; }
+        .corazon-caida { position: fixed; top: -50px; z-index: 5; animation: caer linear forwards; pointer-events: none; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="lluvia-contenedor"></div>
+
+    <div id="pantalla-bloqueo">
+        <h2 style="color: var(--rosa-fuerte); font-family: 'Great Vibes'; font-size: 2rem;">Hola mi amor...</h2>
+        <p>Introduce nuestra clave especial</p>
+        <input type="password" id="clave-input" placeholder="0000">
+        <button id="boton-entrar" onclick="desbloquear()">Entrar ❤️</button>
+    </div>
+
+    <div id="contenido-secreto">
+        <div class="mensaje-contenedor">
+            <h1 class="hola-amor">Hola mi reina</h1>
+            <p style="color: #444; font-style: italic; line-height: 1.6;">
+                Esta página web es creada con mucho amor y solo paso por aquí para recordarte lo mucho que te amo y darte gracias por ser el amor de mi vida y seguir aquí. También paso a desearte un feliz día de la mujer y que tengas un lindo día mi amor y que sea lleno de bendiciones y recuerde que yo la amo mucho.
+            </p>
+        </div>
+
+        <div class="galeria-uniforme">
+            <div class="foto-marco" onclick="abrirFoto('foto1.jpeg', 'Te amo mucho')"><img src="foto1.jpeg"></div>
+            <div class="foto-marco" onclick="abrirFoto('foto2.jpeg', 'Te mando muchos besitos a la distancia')"><img src="foto2.jpeg"></div>
+            <div class="foto-marco" onclick="abrirFoto('foto3.jpeg', 'Eres mi todo')"><img src="foto3.jpeg"></div>
+            <div class="foto-marco" onclick="abrirFoto('foto4.jpeg', 'Feliz día mi mujer hermosa')"><img src="foto4.jpeg"></div>
+        </div>
+
+        <div class="contador-contenedor">
+            <p style="margin-bottom:15px; font-weight:bold; color:#888;">Tiempo amándote:</p>
+            <div id="reloj">
+                <div><span id="dias" class="tiempo-num">0</span>Días</div>
+                <div><span id="horas" class="tiempo-num">0</span>Hrs</div>
+                <div><span id="minutos" class="tiempo-num">0</span>Min</div>
+                <div><span id="segundos" class="tiempo-num">0</span>Seg</div>
+            </div>
+            <p style="font-size: 0.8rem; margin-top: 10px; color: var(--rosa-fuerte);">Desde el 12 de Septiembre, 2023</p>
+        </div>
+
+        <div class="mensaje-contenedor">
+            <p>¿Donde sera nuestra proxima salida?</p>
+            <button class="btn-magico btn-cita" onclick="planearCita()">✨ Planear nuestra próxima cita</button>
+            <div id="resultado-cita" style="margin-top:10px; font-weight:bold; color:var(--rosa-fuerte);"></div>
+        </div>
+
+        <a href="https://youtu.be/rcRX1ma5Zh4" target="_blank" class="btn-magico btn-youtube">▶ Nuestra Canción (YouTube)</a>
+        <button class="btn-magico btn-motivos" onclick="mostrarMotivos()">💖 Mis 100 motivos</button>
+
+        <div class="firma-final">Todo esto es hecho por mí, Carlos.<br>Para mi reina Anahy.</div>
+
+        <div style="font-size: 60px; margin-bottom: 20px;">🌻 🌻</div>
+    </div>
+
+    <div id="modal-foto" class="overlay" onclick="this.style.display='none'">
+        <img id="img-full" style="width:80%; max-width:320px; border-radius:20px; border:6px solid white;">
+        <p id="txt-full" style="color:white; font-weight:bold; margin-top:15px; font-size:1.3rem;"></p>
+    </div>
+
+    <div id="modal-motivos" class="overlay">
+        <div class="modal-card">
+            <h2 style="color: var(--rosa-fuerte); text-align: center;">100 Razones</h2>
+            <div id="lista-motivos" style="line-height: 2; font-size: 0.9rem; color: #444;"></div>
+            <button onclick="document.getElementById('modal-motivos').style.display='none'" style="width:100%; padding:15px; border-radius:15px; border:none; background: #eee; margin-top: 15px; font-weight:bold;">Volver</button>
+        </div>
+    </div>
+
+    <script>
+        function desbloquear() {
+            if(document.getElementById('clave-input').value === "1209") {
+                lanzarConfeti();
+                document.getElementById('pantalla-bloqueo').style.display='none';
+                document.getElementById('contenido-secreto').style.display='block';
+                setInterval(actualizarReloj, 1000);
+            } else { alert("Esa no es nuestra clave ❤️"); }
+        }
+
+        function lanzarConfeti() {
+            for(let i=0; i<60; i++) {
+                let c = document.createElement('div');
+                c.className = 'confeti';
+                c.style.left = Math.random() * 100 + 'vw';
+                c.style.animationDelay = Math.random() * 2 + 's';
+                c.style.backgroundColor = ['#ff4b8c','#ff7eb3','#ffffff'][Math.floor(Math.random()*3)];
+                document.body.appendChild(c);
+                setTimeout(() => c.remove(), 4000);
+            }
+        }
+
+        function actualizarReloj() {
+            const inicio = new Date('2023-09-12T00:00:00');
+            const d = new Date() - inicio;
+            document.getElementById('dias').innerText = Math.floor(d/(1000*60*60*24));
+            document.getElementById('horas').innerText = Math.floor((d%(1000*60*60*24))/(1000*60*60));
+            document.getElementById('minutos').innerText = Math.floor((d%(1000*60*60))/(1000*60));
+            document.getElementById('segundos').innerText = Math.floor((d%(1000*60))/1000);
+        }
+
+        function abrirFoto(src, txt) {
+            document.getElementById('modal-foto').style.display='flex';
+            document.getElementById('img-full').src = src;
+            document.getElementById('txt-full').innerText = txt;
+        }
+
+        function planearCita() {
+            const planes = ["Ir por helados 🍦", "salida romantica 🍝", "ir al parque", "Picnic juntos", "ver pelis juntos", "jugar roblox 🎮"];
+            document.getElementById('resultado-cita').innerText = "Propuesta: " + planes[Math.floor(Math.random()*planes.length)];
+        }
+
+        function mostrarMotivos() {
+            const frases = [
+                "Por tu sonrisa única.", "Por cómo me cuidas.", "Por tu paciencia.", "Por ese 12 de septiembre.", "Por tus ojos.", "Por ser mi mejor amiga.", "Por creer en mí.", "Por tu inteligencia.", "Por cómo me haces reír.", "Por tu ternura.",
+                "Por tus abrazos.", "Por tus besos.", "Por nuestras llamadas.", "Por tu apoyo.", "Por tu fuerza.", "Por ser valiente.", "Por tu voz.", "Por cómo hueles.", "Por tus manos.", "Por nuestros sueños.",
+                "Por cada 'te amo'.", "Por tu lealtad.", "Por cómo me miras.", "Por tu alegría.", "Por tu humildad.", "Por ser tú misma.", "Por tus consejos.", "Por iluminar mi día.", "Por ser mi motivación.", "Por tu bondad.",
+                "Por cómo me comprendes.", "Por perdonarme.", "Por tu paz.", "Por ser mi refugio.", "Por cada detalle.", "Por tu compañía.", "Por tu carisma.", "Por tu magia.", "Por ser mi destino.", "Por tu perfume.",
+                "Por tus mensajes.", "Por tu gran corazón.", "Por ser mi complemento.", "Por tu optimismo.", "Por tu fe.", "Por tu empatía.", "Por tu estilo.", "Por ser mi hogar.", "Por tu sinceridad.", "Porque simplemente eres tú.",
+                "Por tu forma de ver la vida.", "Por hacerme sentir especial.", "Por tu dedicación.", "Por cómo me escuchas.", "Por tus hoyuelos al sonreír.", "Por tu apoyo en mis estudios.", "Por tu madurez.", "Por ser mi prioridad.", "Por tu amor incondicional.", "Por ser mi sueño cumplido.",
+                "Por tu nobleza.", "Por tu elegancia.", "Por tu mirada profunda.", "Por cada momento juntos.", "Por tu capacidad de perdonar.", "Por tu risa contagiosa.", "Por tu apoyo en mi carrera.", "Por ser mi equilibrio.", "Por tu valentía ante los retos.", "Por tu sencillez de alma.",
+                "Por tu entrega.", "Por tu autenticidad.", "Por tu perfume que me encanta.", "Por tu apoyo constante.", "Por ser mi confidente.", "Por tu forma de caminar.", "Por tu voz que me calma.", "Por tu paciencia infinita.", "Por tu gran inteligencia.", "Por tu belleza interna.",
+                "Por tu respeto hacia nosotros.", "Por tu compromiso.", "Por tu fidelidad.", "Por tu optimismo constante.", "Por tu fuerza de voluntad.", "Por tu alegría de vivir.", "Por tu luz propia.", "Por tu honestidad.", "Por tu generosidad.", "Por tu madurez emocional.",
+                "Por tu paciencia con mis errores.", "Por tu forma de amarme.", "Por tu compañía en los días grises.", "Por tu fe en lo nuestro.", "Por tu lealtad absoluta.", "Por tu cariño.", "Por tu ternura al hablar.", "Por ser la mujer de mi vida.", "Por elegirme cada día.", "Porque te amo más que a nada."
+            ];
+            document.getElementById('lista-motivos').innerHTML = frases.map((f, i) => `<b>${i+1}.</b> ${f}<br>`).join('');
+            document.getElementById('modal-motivos').style.display='flex';
+        }
+
+        setInterval(() => {
+            const c = document.createElement('div'); c.className = 'corazon-caida';
+            c.innerHTML = '❤️'; c.style.left = Math.random()*100+'vw';
+            c.style.animationDuration = Math.random()*3+2+'s';
+            document.getElementById('lluvia-contenedor').appendChild(c);
+            setTimeout(() => c.remove(), 5000);
+        }, 400);
+    </script>
+</body>
+</html>
